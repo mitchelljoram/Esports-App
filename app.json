@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "esports-app",
+    "slug": "esports-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "esports-app"
+}

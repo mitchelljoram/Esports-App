@@ -1,0 +1,39 @@
+MENU
+    REGIONS/LEAGUES
+
+
+HOMEPAGE
+    SWIPER
+        REGION SCHEDULE
+            PAST (SCROLL UP)
+                TO MATCHPAGE (PAST)
+            LIVE (START OF PAGE)
+                TO MATCHPAGE (LIVE)
+            UPCOMING (SCROLL DOWN)
+                TO MATCHPAGE (UPCOMING)
+        REGION STANDINGS
+            TO TEAMPAGES
+
+
+MATCHPAGE
+    PAST
+        OPPONENT ROSTERS
+            PLAYER TABS
+                PLAYER STATS FOR MATCH
+        GAME STATS
+    LIVE
+        OPPONENT ROSTERS
+            PLAYER TABS
+                PLAYER STATS FOR MATCH
+        LIVE STATS?
+    UPCOMING
+        OPPONENT ROSTERS
+
+
+TEAMPAGE
+    SWIPER
+        ROSTER
+            PLAYER TABS
+                OVERALL PLAYER STATS
+        TEAM SCHEDULE
+            GAME STATS
