@@ -1,18 +1,22 @@
-MENU
-    REGIONS/LEAGUES
-
-
 HOMEPAGE
+    SWIPEABLE MENU 
+        REGIONS/MSI/WORLDS
     SWIPER
-        REGION SCHEDULE
-            PAST (SCROLL UP)
-                TO MATCHPAGE (PAST)
-            LIVE (START OF PAGE)
-                TO MATCHPAGE (LIVE)
-            UPCOMING (SCROLL DOWN)
-                TO MATCHPAGE (UPCOMING)
-        REGION STANDINGS
-            TO TEAMPAGES
+        SCHEDULEPAGE
+            HEADER
+                PREVIOUS WEEK BUTTON
+                WEEK DATE
+                NEXT WEEK BUTTON
+            GAMESCHEDULE
+                PAST (LEFT ARROW)
+                    TO MATCHPAGE (PAST)
+                THIS WEEK (ON PAGE LOAD)
+                    TO MATCHPAGE (THIS WEEK)
+                UPCOMING (RIGHT ARROW)
+                    TO MATCHPAGE (UPCOMING)
+        STANDINGSPAGE
+            TEAM SCORES
+                TO TEAMPAGES
 
 
 MATCHPAGE
@@ -21,7 +25,7 @@ MATCHPAGE
             PLAYER TABS
                 PLAYER STATS FOR MATCH
         GAME STATS
-    LIVE
+    THIS WEEK
         OPPONENT ROSTERS
             PLAYER TABS
                 PLAYER STATS FOR MATCH

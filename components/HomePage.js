@@ -1,16 +1,21 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import LeagueMenu from './LeagueMenu';
+import SchedulePage from './SchedulePage';
 //import { Swiper } from 'react-native-swiper';
-import GameSchedule from './GameSchedule';
 
 const HomePage = ({navigation}) => {
+    const [league_id, setLeagueId] = useState(297);
+
     return(
     <View>
-        <GameSchedule id={0} navigation={navigation}/>
-        <GameSchedule id={1} navigation={navigation}/>
-        <GameSchedule id={2} navigation={navigation}/>
+        <LeagueMenu league_id={league_id} setLeagueId={setLeagueId}/>
+        <SchedulePage league_id={league_id} navigation={navigation}/>
     </View>
     );
 };
+
+const styles = StyleSheet.create({
+});
 
 export default HomePage;

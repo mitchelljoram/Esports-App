@@ -39,19 +39,19 @@ const styles = StyleSheet.create({
         borderBottomColor: '#a5b0b5',
     },
     content: {
+        alignItems: 'center',
         padding: 20,
         backgroundColor: '#fff',
         flexDirection: 'row',
     },
     playerImage: {
-        justifyContent: 'left',
         width: 50,
         height: 50,
+        marginRight: 50,
     },
     playerName: {
         textAlign: 'left',
         fontWeight: 'bold',
         fontSize: 24,
-        transform: 'translate(50px, 20%)',
     },
 });

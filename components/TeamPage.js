@@ -31,24 +31,27 @@ const playerLineup = (players) => {
     return lineup;
 };
 
-const TeamPage = ({route, navigation}) => {
+const TeamPage = ({ route }) => {
     const { teamID } = route.params;
     const { data, error } = useSWR(`https://api.pandascore.co/lol/teams?filter[id]=${teamID}&sort=&page=1&per_page=1&token=`+token, fetcher);
 
     if(data){
-        console.log(data[0].id + ' - ' + data[0].name);
         const lineup = playerLineup(data[0].players);
 
         return (
-        <View key={data[0].id} style={styles.container}>
-            <Image source={{uri: data[0].image_url}} style={styles.teamImage}/>
-            <Text style={styles.teamName}>{data[0].name}</Text>
-            {lineup.map((player) => {
-            //let { data, error } = useSWR("https://api.pandascore.co/lol/players/{player_id_or_slug}/stats?token="+this.token, this.fetcher);
-            return (
-            <PlayerTab key={player.id} player={player}/>
-            )
-            })} 
+        <View key={data[0].id}>
+            <View style={styles.header}>
+                <Image style={styles.teamImage} source={{uri: data[0].image_url}} />
+                <Text style={styles.teamName}>{data[0].name}</Text>
+            </View>
+            <View>
+                {lineup.map((player) => {
+                //let { data, error } = useSWR("https://api.pandascore.co/lol/players/{player_id_or_slug}/stats?token="+this.token, this.fetcher);
+                return (
+                <PlayerTab key={player.id} player={player}/>
+                )
+            })}
+            </View>
         </View>
         );
     }
@@ -61,22 +64,26 @@ const TeamPage = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+    header: {
+        width: '100%',
+        backgroundColor: '#000',
+        flexDirection: 'row',
+        borderTopColor: '#fff',
+        height: 150,
+        borderTopWidth: 1,
+        paddingHorizontal: 20,
     },
     teamImage: {
-        justifyContent: 'center',
-        width: 500,
-        height: 166,
-        resizeMode: 'cover',
+        width: 100,
+        resizeMode: 'contain',
     },
     teamName: {
+        color: '#fff',
         textAlign: 'center',
-        fontSize: 32,
+        fontSize: 25,
         fontWeight: 'bold',
+        marginTop: 60,
+        marginLeft: 20,
     },
     content: {
         padding: 20,
