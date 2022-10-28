@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, SafeAreaView, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
 
 const leagues = [
     {id: 4198, name: 'LCS', image: require('./league-icons/LCS.png')},
@@ -18,7 +18,7 @@ const leagues = [
 
 const LeagueMenu = ({ league_id ,setLeagueId }) => {
     return(
-    <View>
+    <SafeAreaView>
         <ScrollView style={styles.leagueMenu} horizontal={true}>
             {leagues.map((league) => {
                 if(league.id === league_id){
@@ -37,14 +37,14 @@ const LeagueMenu = ({ league_id ,setLeagueId }) => {
                 );
             })}
         </ScrollView>
-    </View>
+    </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     leagueMenu: {
         width: '100%',
-        backgroundColor: '#000',
+        backgroundColor: '#272727',
         borderTopColor: '#fff',
         borderBottomColor: '#fff',
         borderTopWidth: 1,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         marginVertical: 0,
     },
     pickedLeagueIcon: {
-        tintColor: '#000',
+        tintColor: '#272727',
         hieght: 'auto',
         resizeMode: 'contain',
         width: 30,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         marginVertical: 0,
     },
     pickedLeagueName:{
-        color: '#000',
+        color: '#272727',
         fontWeight: 'bold',
         fontSize: 16,
         marginRight: 10,

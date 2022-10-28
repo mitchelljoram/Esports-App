@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text , Button, ScrollView, Pressable } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { StyleSheet, View, SafeAreaView, Text , ScrollView, RefreshControl, DevSettings, Pressable } from 'react-native';
 import useSWR from 'swr';
 import MatchTab from './MatchTab';
 
@@ -12,9 +12,16 @@ const getPrevWeek = (date) => {
     return prevWeek;
 }
 const getWeek = (date) => {
-    let monday = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 1); // First day is the day of the month - the day of the week
-    let sunday = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 7); // last day is the first day + 6
-
+    let monday = null;
+    let sunday = null;
+    if(date.getDay() === 0){
+        monday = new Date(date.getFullYear(), date.getMonth(), date.getDate() - 6);
+        sunday = date;
+    }
+    else{
+        monday = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 1);
+        sunday = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 7);
+    }
     return { 
     week_start: monday,
     week_end: sunday
@@ -24,13 +31,20 @@ const getNextWeek = (date) => {
     let nextWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate()+7);
     return nextWeek;
 }
-const formatDate = (date) => {
-    let dd = String(date.getDate()).padStart(2, '0');
+const formatDate = (date, isEndDate) => {
+    let dd = isEndDate ? String(date.getDate() + 1).padStart(2, '0') : String(date.getDate()).padStart(2, '0');
     let mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
     let yyyy = date.getFullYear();
 
-    let formattedDate = yyyy + '-' + mm + '-' + dd;
+    let formattedDate = yyyy + '-' + mm + '-' + dd; 
     return formattedDate;
+}
+const localizeDate = (date) => {
+    if(date){
+        let localizedDate = new Date(new Date(date).getTime() - (9 * 60 * 60 * 1000));
+        return localizedDate;
+    }
+    return null;
 }
 const displayDateMDY = (date) => {
     return date.toLocaleDateString('en-us');
@@ -38,11 +52,15 @@ const displayDateMDY = (date) => {
 const displayDateWMD = (date) => {
     let dateSplit = date.split('-');
     let displayWMD = new Date(parseInt(dateSplit[0]),parseInt(dateSplit[1])-1,parseInt(dateSplit[2]),).toLocaleDateString('en-us');
-    return displayWMD.substring(0,displayWMD.length-3);
+    return displayWMD.substring(0,displayWMD.length-3); 
+}
+
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
 const url = (league_id, start_date, end_date) => {
-    return `https://api.pandascore.co/lol/matches?filter[league_id]=${league_id}&sort=begin_at&range[begin_at]=${formatDate(start_date)}%2C${formatDate(end_date)}&page=1&per_page=50&token=${token}`;
+    return `https://api.pandascore.co/lol/matches?filter[league_id]=${league_id}&sort=begin_at&range[begin_at]=${formatDate(start_date,false)}T09:00:00Z%2C${formatDate(end_date,true)}T08:59:00Z&page=1&per_page=50&token=${token}`;
 }
 /*
 const pastUrl = (league_id) => {
@@ -58,76 +76,81 @@ const upcomingUrl = (date, league_id) => {
 
 const SchedulePage = ({ league_id, navigation }) => {
     const [date, dateSet] = useState(new Date());
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = useCallback(async () => {
+        setRefreshing(true);
+        DevSettings.reload();
+    }, [refreshing,date]);
     let { week_start, week_end } = getWeek(date);
 
     const { data, error } = useSWR(url(league_id, week_start, week_end), fetcher);
 
     if(error){
         return(
-        <View>
+        <SafeAreaView>
             <Text>LoL Error</Text>
-        </View>
+        </SafeAreaView>
         );
     }
     else if(data){
         let currentDate = null;
         return(
-            <View>
-                
-                <View style={styles.header}>
-                    <Pressable style={styles.arrowButton} onPress={() => {dateSet(getPrevWeek(date))}}>
-                        <Text style={styles.arrowText}>{'<'}</Text>
-                    </Pressable>
-                    <Text style={styles.mdyText}>{`${displayDateMDY(week_start)}    -    ${displayDateMDY(week_end)}`}</Text>
-                    <Pressable style={styles.arrowButton} onPress={() => {dateSet(getNextWeek(date))}}>
-                        <Text style={styles.arrowText}>{'>'}</Text>
-                    </Pressable>
-                </View>
-                <ScrollView style={styles.scrollView}>
-                    {data.length ? 
-                    data.map((match) => {
-                        let matchDate = match.scheduled_at.split('T')[0];
-                        if(matchDate === currentDate){
-                            return(
-                            <MatchTab key={match.id} match={match} navigation={navigation}/>
-                            );
-                        }
-                        currentDate = matchDate;
-                        return(
-                        <View key={currentDate}>
-                            <Text style={styles.wmdText}>{displayDateWMD(currentDate)}</Text>
-                            <MatchTab key={match.id} match={match} navigation={navigation}/>
-                        </View>
-                        );
-                    })
-                    :
-                    <View>
-                        <Text>LoL No Data</Text>
-                    </View>
-                    }
-                </ScrollView>
+        <SafeAreaView>
+            <View style={styles.header}>
+                <Pressable style={styles.arrowButton} onPress={() => {dateSet(getPrevWeek(date))}}>
+                    <Text style={styles.arrowText}>{'<'}</Text>
+                </Pressable>
+                <Text style={styles.mdyText}>{`${displayDateMDY(week_start)}    -    ${displayDateMDY(week_end)}`}</Text>
+                <Pressable style={styles.arrowButton} onPress={() => {dateSet(getNextWeek(date))}}>
+                    <Text style={styles.arrowText}>{'>'}</Text>
+                </Pressable>
             </View>
+
+            <ScrollView style={styles.scrollView} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
+                {data.length ? 
+                data.map((match) => {
+                    let matchDate = localizeDate(match.scheduled_at);
+                    if(formatDate(matchDate) === currentDate){
+                        return(
+                        <MatchTab key={match.id} match={match} matchDate={matchDate} navigation={navigation}/>
+                        );
+                    }
+                    currentDate = formatDate(matchDate);
+                    return(
+                    <View key={currentDate}>
+                        <Text style={styles.wmdText}>{displayDateWMD(currentDate)}</Text>
+                        <MatchTab key={match.id} match={match} navigation={navigation}/>
+                    </View>
+                    );
+                })
+                :
+                <View>
+                    <Text>LoL No Data</Text>
+                </View>
+                }
+            </ScrollView>
+        </SafeAreaView>
         );
     }
     
     return(
-    <View>
+    <SafeAreaView>
         <Text>Loading...</Text>
-    </View>
+    </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     header: {
         width: '100%',
-        backgroundColor: '#000',
+        backgroundColor: '#272727',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         height: 34,
     },
     scrollView: {
-        marginBottom: 300,
+        height: 560,
     },
     arrowButton: {
         marginHorizontal: 20,

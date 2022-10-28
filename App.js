@@ -12,8 +12,8 @@ export default function App() {
   return (
   <NavigationContainer>
     <Stack.Navigator>
-      <Stack.Screen name='home' component={HomePage} options={{title:'Schedule', headerStyle:{backgroundColor:'#000'}, headerTintColor: '#fff', headerTitleStyle:{fontWeight:'bold'}}}/>
-      <Stack.Screen name='team' component={TeamPage} options={{title:'', headerStyle:{backgroundColor:'#000'}, headerTintColor: '#fff'}}/>
+      <Stack.Screen name='home' component={HomePage} options={{title:'Schedule', headerStyle:{backgroundColor:'#272727'}, headerTintColor: '#fff', headerTitleStyle:{fontWeight:'bold'}}}/>
+      <Stack.Screen name='team' component={TeamPage} options={{title:'', headerStyle:{backgroundColor:'#272727'}, headerTintColor: '#fff'}}/>
     </Stack.Navigator>
   </NavigationContainer>
   );

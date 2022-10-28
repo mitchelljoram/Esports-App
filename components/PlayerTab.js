@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, SafeAreaView, Text, TouchableOpacity, Image } from 'react-native';
 import Collapsible from 'react-native-collapsible';
+
+//let { data, error } = useSWR("https://api.pandascore.co/lol/players/{player_id_or_slug}/stats?token="+this.token, this.fetcher);
 
 export class PlayerTab extends Component {
     state = {
@@ -16,7 +18,7 @@ export class PlayerTab extends Component {
         const { player } = this.props;
 
         return (
-        <View style={styles.collapsing}>
+        <SafeAreaView style={styles.collapsing}>
             <TouchableOpacity onPress={this.toggleExpanded}>
                 <View style={styles.content}>
                     <Image source={{uri: player.image_url}} style={styles.playerImage}/>
@@ -28,21 +30,58 @@ export class PlayerTab extends Component {
                     <Text>Stats go here</Text>
                 </View>
             </Collapsible>
-        </View>
+        </SafeAreaView>
         );
     }
 };
 
 const styles = StyleSheet.create({
     collapsing:{
-        borderBottomWidth: 1,
         borderBottomColor: '#a5b0b5',
+        borderBottomWidth: 1,
     },
     content: {
         alignItems: 'center',
-        padding: 20,
         backgroundColor: '#fff',
         flexDirection: 'row',
+        height: 109,
+        padding: 20,
+    },
+    playerImage: {
+        width: 80,
+        height: 80,
+        marginRight: 50,
+    },
+    playerName: {
+        textAlign: 'left',
+        fontWeight: 'bold',
+        fontSize: 24,
+    },
+});
+
+/*
+import React from 'react';
+import { StyleSheet, View, SafeAreaView, Text, TouchableOpacity, Image } from 'react-native';
+import Collapsible from 'react-native-collapsible';
+
+const PlayerTab = ({ player }) => {
+    return (
+    <SafeAreaView style={styles.content}>
+        <Image source={{uri: player.image_url}} style={styles.playerImage}/>
+        <Text style={styles.playerName}>{player.name} - {player.role}</Text>
+    </SafeAreaView>
+    );
+};
+
+const styles = StyleSheet.create({
+    content: {
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        flexDirection: 'row',
+        borderBottomColor: '#a5b0b5',
+        borderBottomWidth: 1,
+        height: 111,
+        padding: 20,
     },
     playerImage: {
         width: 50,
@@ -55,3 +94,4 @@ const styles = StyleSheet.create({
         fontSize: 24,
     },
 });
+*/
