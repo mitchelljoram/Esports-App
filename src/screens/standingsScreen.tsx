@@ -9,12 +9,14 @@ export const StandingsScreen = ({ standings }: any) => {
 
   return (
     <SafeAreaView className="flex-1 justify-center bg-white">
-      <ScrollView>
+      {/*
         <Text className="text-sky-400">Standings Screen</Text>
         <Button
           title="Go to Team Screen"
           onPress={() => navigation.navigate("Team-Screen")}
         />
+      */}
+      <ScrollView>
         {standings.map((team: any, index: number) => (<RankingCard key={index} team={team} />))}
       </ScrollView>
     </SafeAreaView>
