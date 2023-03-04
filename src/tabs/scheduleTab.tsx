@@ -1,11 +1,13 @@
 import React from "react";
 import { ScheduleScreen } from "../screens/scheduleScreen";
-import { useNavigation } from '@react-navigation/native';
+
+/* For testing purposes only */
+import schedule from "../components/common/test-data/schedule";
 
 export const ScheduleTab = () => {
-    const navigation = useNavigation();
+    const data = schedule.events;
 
     return (
-      <ScheduleScreen navigation={navigation}/>
+      <ScheduleScreen schedule={data}/>
     );
 };

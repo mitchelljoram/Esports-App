@@ -1,15 +1,22 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
-  
-export const StandingsScreen = ( {navigation} : any ) => {
+import { SafeAreaView, Text, Button, ScrollView } from "react-native";
+import { RankingCard } from "../components/standings/rankingCard";
 
-    return (
-        <View className="flex-1 items-center justify-center bg-white">
+import { useNavigation } from '@react-navigation/native';
+  
+export const StandingsScreen = ({ standings }: any) => {
+  const navigation = useNavigation();
+
+  return (
+    <SafeAreaView className="flex-1 justify-center bg-white">
+      <ScrollView>
         <Text className="text-sky-400">Standings Screen</Text>
         <Button
           title="Go to Team Screen"
           onPress={() => navigation.navigate("Team-Screen")}
         />
-      </View>
-    );
+        {standings.map((team: any, index: number) => (<RankingCard key={index} team={team} />))}
+      </ScrollView>
+    </SafeAreaView>
+  );
 };

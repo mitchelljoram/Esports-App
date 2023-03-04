@@ -1,11 +1,13 @@
 import React from "react";
 import { StandingsScreen } from "../screens/standingsScreen";
-import { useNavigation } from '@react-navigation/native';
+
+/* For testing purposes only */
+import standings from "../components/common/test-data/standings";
 
 export const StandingsTab = ( ) => {
-    const navigation = useNavigation();
+    const data = standings.stages[0].sections[0].rankings;
 
     return (
-      <StandingsScreen navigation={navigation}/>
+      <StandingsScreen standings={data}/>
     );
 };
