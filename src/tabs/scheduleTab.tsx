@@ -1,11 +1,17 @@
 import React from "react";
 import { ScheduleScreen } from "../screens/scheduleScreen";
-import { useNavigation } from '@react-navigation/native';
+
+// For testing purposes only
+import schedule from "../components/common/test-data/schedule";
 
 export const ScheduleTab = () => {
-    const navigation = useNavigation();
+  // TODO: date and setDate state here
 
-    return (
-      <ScheduleScreen navigation={navigation}/>
-    );
+  // TODO: fetch schdeule data from pandascore correlating to selected date
+
+  const data = {};
+
+  return (
+    <ScheduleScreen schedule={data}/>
+  );
 };

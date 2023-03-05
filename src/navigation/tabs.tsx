@@ -7,6 +7,7 @@ const Tab = createMaterialTopTabNavigator();
 
 export const TabNavigator = ( { navigation }  : any ) => {
     return (
+      // TODO: send pandascore api id to ScheduleTab and rapidapi id to StandingsTab
       <Tab.Navigator>
         <Tab.Screen name="Schedule-Tab" component={ScheduleTab} />
         <Tab.Screen name="Standings-Tab" component={StandingsTab} />

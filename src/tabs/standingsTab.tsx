@@ -1,11 +1,18 @@
 import React from "react";
 import { StandingsScreen } from "../screens/standingsScreen";
-import { useNavigation } from '@react-navigation/native';
+
+// For testing purposes only
+import standings from "../components/common/test-data/standings";
 
 export const StandingsTab = ( ) => {
-    const navigation = useNavigation();
+  // TODO: fetch data from rapidapi
+  // fetch region tournaments
+  // find tournament to correlates to current date
+  // fetch standings for tournament
 
-    return (
-      <StandingsScreen navigation={navigation}/>
-    );
+  const data = standings.stages[0].sections[0].rankings;
+
+  return (
+    <StandingsScreen standings={data}/>
+  );
 };

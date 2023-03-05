@@ -11,6 +11,7 @@ export const DrawerNavigator = () => {
         <Drawer.Navigator screenOptions={{drawerStyle: {backgroundColor: "#313639",width: 250,}, swipeEnabled: false}}>
             {leagues.map((league) => {
                 return (
+                    // TODO: send api ids to StackNavigator
                     <Drawer.Screen key={league.id} name={league.name} component={StackNavigator} options={{
                         drawerIcon: () => {
                             return(

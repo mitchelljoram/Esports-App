@@ -8,6 +8,7 @@ const Stack = createStackNavigator();
 
 export const StackNavigator = () => {
     return (
+        // TODO: send api ids to TabNavigator
         <Stack.Navigator screenOptions={ {headerShown: false} }>
             <Stack.Screen name="Home-Screen" component={TabNavigator} />
             <Stack.Screen name="Match-Screen" component={MatchScreen} options={{}}/>
