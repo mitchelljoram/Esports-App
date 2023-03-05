@@ -111,7 +111,7 @@ const schedule = [
         "rescheduled": false,
         "results": [
             {
-            "score": 0,
+            "score": 1,
             "team_id": 125984
             },
             {
@@ -136,7 +136,7 @@ const schedule = [
         },
         "serie_id": 5618,
         "slug": "bilibili-gaming-junior-vs-team-pinnacle-2023-03-05",
-        "status": "not_started",
+        "status": "finished",
         "streams_list": [
             {
             "embed_url": "https://liveshare.huya.com/iframe/ldl",
@@ -189,7 +189,7 @@ const schedule = [
         "game_advantage": null,
         "games": [
             {
-            "begin_at": null,
+            "begin_at": "2023-03-05T04:00:00Z",
             "complete": false,
             "detailed_stats": true,
             "end_at": null,
@@ -243,7 +243,7 @@ const schedule = [
             "winner_type": "Team"
             }
         ],
-        "id": 736414,
+        "id": 736415,
         "league": {
             "id": 4226,
             "image_url": "https://cdn.pandascore.co/images/league/image/4226/LDL_logo.png",
@@ -300,9 +300,9 @@ const schedule = [
             "team_id": 128338
             }
         ],
-        "scheduled_at": "2023-03-05T10:00:00Z",
+        "scheduled_at": "2023-03-05T08:00:00Z",
         "serie": {
-            "begin_at": "2023-02-04T04:00:00Z",
+            "begin_at": "2023-03-04T04:00:00Z",
             "end_at": null,
             "full_name": "Split 1 2023",
             "id": 5618,
