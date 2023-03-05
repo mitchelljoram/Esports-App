@@ -119,7 +119,7 @@ const schedule = [
             "team_id": 128338
             }
         ],
-        "scheduled_at": "2023-03-05T10:00:00Z",
+        "scheduled_at": "2023-03-04T10:00:00Z",
         "serie": {
             "begin_at": "2023-02-04T04:00:00Z",
             "end_at": null,
