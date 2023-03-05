@@ -1,6 +1,6 @@
 import React from "react";
 import { SafeAreaView, Text, Button, ScrollView } from "react-native";
-import { RankingCard } from "../components/standings/rankingCard";
+import { RankCard } from "../components/standings/rankCard";
 
 import { useNavigation } from '@react-navigation/native';
   
@@ -17,7 +17,9 @@ export const StandingsScreen = ({ standings }: any) => {
         />
       */}
       <ScrollView>
-        {standings.map((team: any, index: number) => (<RankingCard key={index} team={team} />))}
+        {standings.map((rank: any) => {
+          return rank.teams.map((team: any) => ( <RankCard key={team.id} ordinal={rank.ordinal} team={team} /> ))
+        })}
       </ScrollView>
     </SafeAreaView>
   );

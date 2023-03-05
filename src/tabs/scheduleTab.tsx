@@ -5,7 +5,7 @@ import { ScheduleScreen } from "../screens/scheduleScreen";
 import schedule from "../components/common/test-data/schedule";
 
 export const ScheduleTab = () => {
-    const data = schedule.events;
+    const data = {};
 
     return (
       <ScheduleScreen schedule={data}/>
