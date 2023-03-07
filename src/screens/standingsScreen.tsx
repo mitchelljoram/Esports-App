@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, Text, Button, ScrollView } from "react-native";
+import { SafeAreaView, View, ScrollView} from "react-native";
 import { RankCard } from "../components/standings/rankCard";
 
 import { useNavigation } from '@react-navigation/native';
@@ -17,8 +17,17 @@ export const StandingsScreen = ({ standings }: any) => {
         />
       */}
       <ScrollView>
-        {standings.map((rank: any) => {
-          return rank.teams.map((team: any) => ( <RankCard key={team.id} ordinal={rank.ordinal} team={team} /> ))
+        {standings.map((rank: any, index: number) => {
+          return (
+            <View>
+              {rank.teams.map((team: any) => ( <RankCard key={team.id} ordinal={rank.ordinal} team={team} /> ))}
+              {index != standings.length - 1 ?
+                <View className="border-b-2 border-white"></View>
+                : 
+                null
+              }
+            </View>
+          );
         })}
       </ScrollView>
     </SafeAreaView>

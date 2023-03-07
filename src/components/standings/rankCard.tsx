@@ -6,7 +6,7 @@ export const RankCard = ({ ordinal, team }: any) => {
     return (
         // TODO: Make this clickable to navigate to team page
         // TODO: Use team.slug to send to pandascore for team page
-        <View className="flex flex-row items-center bg-[#313639] py-5 px-10 border-b-2 border-white">
+        <View className="flex flex-row items-center bg-[#313639] py-5 px-10">
             <Text className="w-10 text-3xl text-white font-bold text-left mr-5">{ordinal}</Text>
             <View className="mr-10">
                 <Image source={{ uri: team.image }} className="w-12 h-12"/>
