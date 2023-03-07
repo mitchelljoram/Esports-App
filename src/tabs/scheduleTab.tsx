@@ -9,7 +9,7 @@ export const ScheduleTab = () => {
 
   // TODO: fetch schdeule data from pandascore correlating to selected date
 
-  const data = {};
+  const data = schedule;
 
   return (
     <ScheduleScreen schedule={data}/>
