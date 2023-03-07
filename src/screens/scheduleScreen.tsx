@@ -81,22 +81,37 @@ export const ScheduleScreen = ({ schedule }: any) => {
             </View>
             <ScrollView>
                 {
-                    schedule ?
-                    schedule.map((match: any) => {
+                    schedule.length > 0 ?
+                    schedule.map( ( match: any, index: number ) => {
                         let matchDate = formatDate(localizeDate(match.scheduled_at));
-                        if(matchDate === weekDate)
-                            return (<MatchCard key={match.id} match={match} />);
+                        if( matchDate === weekDate )
+                            return (
+                                <View className="mb-[1px]" key={match.id}>
+                                    <MatchCard key={match.id} match={match} />
+                                </View>
+                            );
                         
                         weekDate = matchDate;
+                        if ( index === 0 ) 
+                            return (
+                                <View className="mb-[1px]" key={match.id}>
+                                    <View className="bg-[#313639] mb-[1px]">
+                                        <Text className="text-white text-bold">{displayDay(weekDate)}</Text>
+                                    </View>
+                                    <MatchCard match={match} />
+                                </View>
+                            )
                         return (
-                            <View key={match.id}>
-                                <Text>{displayDay(weekDate)}</Text>
+                            <View className="mt-[2px] mb-[1px]" key={match.id}>
+                                <View className="bg-[#313639] mb-[1px]">
+                                    <Text className="text-white text-bold">{displayDay(weekDate)}</Text>
+                                </View>
                                 <MatchCard match={match} />
                             </View>
                         );
                     })
                     : 
-                    <Text>No matches scheduled</Text>
+                    <Text>No matches scheduled this week</Text>
                 }
             </ScrollView>
         </SafeAreaView>

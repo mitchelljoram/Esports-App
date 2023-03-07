@@ -118,7 +118,6 @@ const SchedulePage = ({ league_id, navigation }) => {
                     currentDate = formatDate(matchDate);
                     return(
                     <View key={currentDate}>
-                        <Text style={styles.wmdText}>{displayDateWMD(currentDate)}</Text>
                         <MatchTab key={match.id} match={match} navigation={navigation}/>
                     </View>
                     );
